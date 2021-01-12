@@ -9,7 +9,7 @@
           label="Email"
           name="email"
           v-model="email"
-          prepend-icon="mdi-email"
+          :prepend-icon="emailIcon"
           type="text"
           @blur="$v.email.$touch()"
           :error-messages="emailErrors"
@@ -21,7 +21,7 @@
           name="password"
           type="password"
           v-model="password"
-          prepend-icon="mdi-lock"
+          :prepend-icon="passwordIcon"
           @blur="$v.password.$touch()"
           :error-messages="passwordErrors"
           :messages="passwordMessage"
@@ -40,6 +40,8 @@
 <script>
 import { validationMixin } from 'vuelidate';
 import { required, email, minLength } from 'vuelidate/lib/validators';
+import { mdiEmail } from '@mdi/js';
+import { mdiLock } from '@mdi/js';
 
 export default {
   name: 'AuthForm',
@@ -60,6 +62,8 @@ export default {
   data: () => ({
     email: '',
     password: '',
+    emailIcon: mdiEmail,
+    passwordIcon: mdiLock,
   }),
   computed: {
     passwordMessage() {
