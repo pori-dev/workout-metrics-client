@@ -2,7 +2,7 @@
   <v-container class="fill-height blue-grey darken-3" fluid>
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="4">
-        <auth-form></auth-form>
+        <auth-form auth-type="register"></auth-form>
       </v-col>
     </v-row>
   </v-container>
