@@ -3,9 +3,10 @@
     <v-text-field
       label="Email"
       name="email"
-      v-model="email"
-      :prepend-icon="emailIcon"
+      required
       type="text"
+      :prepend-icon="emailIcon"
+      v-model="email"
       @blur="$v.email.$touch()"
       :error-messages="emailErrors"
     >
@@ -15,6 +16,7 @@
       label="Password"
       name="password"
       type="password"
+      required
       v-model="password"
       :prepend-icon="passwordIcon"
       @blur="$v.password.$touch()"
@@ -43,9 +45,21 @@ import { mdiLock } from '@mdi/js';
 export default {
   name: 'AuthForm',
   mixins: [validationMixin],
-  validations: {
-    email: { required, email },
-    password: { required, minLength: minLength(10) },
+  validations() {
+    if (this.authType === 'login') {
+      return {
+        email: { required, email },
+        password: { required },
+      };
+    } else {
+      return {
+        email: { required, email },
+        password: {
+          required,
+          minLength: minLength(10),
+        },
+      };
+    }
   },
   props: {
     authType: {
@@ -65,7 +79,7 @@ export default {
   }),
   computed: {
     passwordMessage() {
-      return this.password.length >= 10
+      return this.authType === 'login' || this.password.length >= 10
         ? ''
         : 'Password must be at least 10 character';
     },
@@ -81,6 +95,7 @@ export default {
       if (!this.$v.password.$dirty) return errors;
       !this.$v.password.required && errors.push('Password is required');
       !this.$v.password.minLength &&
+        this.authType === 'register' &&
         errors.push('Must be at least 10 character');
       return errors;
     },
@@ -101,9 +116,11 @@ export default {
       this.$v.$touch();
       if (this.submitStatus === ('ERROR' || 'PENDING')) return;
       if (this.$v.$invalid) {
+        console.log(1);
         this.submitStatus = 'ERROR';
         return;
       } else {
+        console.log(2);
         this.submitStatus = 'PENDING';
       }
       this.axios
