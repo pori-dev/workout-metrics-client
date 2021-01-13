@@ -84,7 +84,7 @@ export default {
       default: 'login',
       type: String,
       validator(value) {
-        return ['login', 'register'].indexOf(value) !== -1;
+        return ['login', 'register'].includes(value);
       },
     },
   },
@@ -105,26 +105,28 @@ export default {
     emailErrors() {
       const errors = [];
       if (!this.$v.email.$dirty) return errors;
-      !this.$v.email.required && errors.push('Email is required');
-      !this.$v.email.email && errors.push('Must be valid e-mail');
+      if (!this.$v.email.required) errors.push('Email is required');
+      if (!this.$v.email.email) errors.push('Must be valid e-mail');
       return errors;
     },
     passwordErrors() {
       const errors = [];
       if (!this.$v.password.$dirty) return errors;
-      !this.$v.password.required && errors.push('Password is required');
-      !this.$v.password.minLength &&
-        this.authType === 'register' &&
+      if (!this.$v.password.required) errors.push('Password is required');
+      if (!this.$v.password.minLength && this.authType === 'register') {
         errors.push('Must be at least 10 character');
+      }
       return errors;
     },
     passwordConfirmError() {
       const errors = [];
       if (!this.$v.confirmPassword.$dirty) return errors;
-      !this.$v.confirmPassword.required &&
+      if (!this.$v.confirmPassword.required) {
         errors.push('Password confirmation is required');
-      if (this.confirmPassword !== this.password)
+      }
+      if (this.confirmPassword !== this.password) {
         errors.push("Passwords don't match");
+      }
       return errors;
     },
     isSubmitDisabled() {
@@ -133,14 +135,6 @@ export default {
   },
   methods: {
     ...mapMutations('snackbar', ['showSnackbar']),
-    submit() {
-      this.$v.$touch();
-    },
-    clear() {
-      this.$v.$reset();
-      this.email = '';
-      this.password = '';
-    },
     submitForm() {
       this.$v.$touch();
       if (this.submitStatus === ('ERROR' || 'PENDING')) return;
