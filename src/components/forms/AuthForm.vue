@@ -30,7 +30,7 @@
         color="primary"
         @click="submitForm"
         :disabled="isSubmitDisabled"
-        >Register</v-btn
+        >{{ authType }}</v-btn
       >
     </div>
   </v-form>
@@ -41,6 +41,7 @@ import { validationMixin } from 'vuelidate';
 import { required, email, minLength } from 'vuelidate/lib/validators';
 import { mdiEmail } from '@mdi/js';
 import { mdiLock } from '@mdi/js';
+import { mapMutations } from 'vuex';
 
 export default {
   name: 'AuthForm',
@@ -104,6 +105,7 @@ export default {
     },
   },
   methods: {
+    ...mapMutations('snackbar', ['showSnackbar']),
     submit() {
       this.$v.$touch();
     },
@@ -116,11 +118,9 @@ export default {
       this.$v.$touch();
       if (this.submitStatus === ('ERROR' || 'PENDING')) return;
       if (this.$v.$invalid) {
-        console.log(1);
         this.submitStatus = 'ERROR';
         return;
       } else {
-        console.log(2);
         this.submitStatus = 'PENDING';
       }
       this.axios
@@ -132,12 +132,12 @@ export default {
           this.$router.push({ path: '/dashboard' });
         })
         .catch(err => {
-          alert(err.response.data.message);
+          this.showSnackbar({
+            text: err.response.data.message,
+          });
           this.submitStatus = null;
         });
     },
   },
 };
 </script>
-
-<style></style>
