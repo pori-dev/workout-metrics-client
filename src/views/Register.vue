@@ -2,7 +2,15 @@
   <v-container class="fill-height blue-grey darken-3" fluid>
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="4">
-        <auth-form auth-type="register"></auth-form>
+        <v-card class="elevation-12">
+          <v-toolbar color="primary" dark flat>
+            <v-toolbar-title>Register</v-toolbar-title>
+          </v-toolbar>
+
+          <v-card-text>
+            <auth-form auth-type="register"></auth-form>
+          </v-card-text>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>

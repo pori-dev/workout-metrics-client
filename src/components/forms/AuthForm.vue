@@ -1,40 +1,31 @@
 <template>
-  <v-card class="elevation-12">
-    <v-toolbar color="primary" dark flat>
-      <v-toolbar-title>Register</v-toolbar-title>
-    </v-toolbar>
-    <v-card-text>
-      <v-form>
-        <v-text-field
-          label="Email"
-          name="email"
-          v-model="email"
-          :prepend-icon="emailIcon"
-          type="text"
-          @blur="$v.email.$touch()"
-          :error-messages="emailErrors"
-        >
-        </v-text-field>
+  <v-form>
+    <v-text-field
+      label="Email"
+      name="email"
+      v-model="email"
+      :prepend-icon="emailIcon"
+      type="text"
+      @blur="$v.email.$touch()"
+      :error-messages="emailErrors"
+    >
+    </v-text-field>
 
-        <v-text-field
-          label="Password"
-          name="password"
-          type="password"
-          v-model="password"
-          :prepend-icon="passwordIcon"
-          @blur="$v.password.$touch()"
-          :error-messages="passwordErrors"
-          :messages="passwordMessage"
-        >
-        </v-text-field>
-      </v-form>
-    </v-card-text>
-
-    <v-card-actions class="pb-5">
-      <v-spacer> </v-spacer>
-      <v-btn color="primary">Register</v-btn>
-    </v-card-actions>
-  </v-card>
+    <v-text-field
+      label="Password"
+      name="password"
+      type="password"
+      v-model="password"
+      :prepend-icon="passwordIcon"
+      @blur="$v.password.$touch()"
+      :error-messages="passwordErrors"
+      :messages="passwordMessage"
+    >
+    </v-text-field>
+    <div class="d-flex">
+      <v-btn class="mt-10 ml-auto" color="primary">Register</v-btn>
+    </div>
+  </v-form>
 </template>
 
 <script>
