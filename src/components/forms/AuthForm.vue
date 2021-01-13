@@ -24,6 +24,20 @@
       :messages="passwordMessage"
     >
     </v-text-field>
+    <div v-if="authType === 'register'">
+      <v-text-field
+        label="Confirm password"
+        name="confirm-password"
+        type="password"
+        required
+        class="mt-4"
+        v-model="confirmPassword"
+        :prepend-icon="passwordIcon"
+        @blur="$v.confirmPassword.$touch()"
+        :error-messages="passwordConfirmError"
+      >
+      </v-text-field>
+    </div>
     <div class="d-flex">
       <v-btn
         class="mt-10 ml-auto"
@@ -59,6 +73,9 @@ export default {
           required,
           minLength: minLength(10),
         },
+        confirmPassword: {
+          required,
+        },
       };
     }
   },
@@ -74,6 +91,7 @@ export default {
   data: () => ({
     email: '',
     password: '',
+    confirmPassword: '',
     emailIcon: mdiEmail,
     passwordIcon: mdiLock,
     submitStatus: null,
@@ -98,6 +116,15 @@ export default {
       !this.$v.password.minLength &&
         this.authType === 'register' &&
         errors.push('Must be at least 10 character');
+      return errors;
+    },
+    passwordConfirmError() {
+      const errors = [];
+      if (!this.$v.confirmPassword.$dirty) return errors;
+      !this.$v.confirmPassword.required &&
+        errors.push('Password confirmation is required');
+      if (this.confirmPassword !== this.password)
+        errors.push("Passwords don't match");
       return errors;
     },
     isSubmitDisabled() {
