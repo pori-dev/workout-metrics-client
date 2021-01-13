@@ -1,5 +1,5 @@
 <template>
-  <v-form>
+  <v-form @submit.prevent>
     <v-text-field
       label="Email"
       name="email"
@@ -23,7 +23,13 @@
     >
     </v-text-field>
     <div class="d-flex">
-      <v-btn class="mt-10 ml-auto" color="primary">Register</v-btn>
+      <v-btn
+        class="mt-10 ml-auto"
+        color="primary"
+        @click="submitForm"
+        :disabled="isSubmitDisabled"
+        >Register</v-btn
+      >
     </div>
   </v-form>
 </template>
@@ -39,7 +45,7 @@ export default {
   mixins: [validationMixin],
   validations: {
     email: { required, email },
-    password: { required, email, minLength: minLength(10) },
+    password: { required, minLength: minLength(10) },
   },
   props: {
     authType: {
@@ -55,6 +61,7 @@ export default {
     password: '',
     emailIcon: mdiEmail,
     passwordIcon: mdiLock,
+    submitStatus: null,
   }),
   computed: {
     passwordMessage() {
@@ -77,6 +84,9 @@ export default {
         errors.push('Must be at least 10 character');
       return errors;
     },
+    isSubmitDisabled() {
+      return this.submitStatus === 'PENDING';
+    },
   },
   methods: {
     submit() {
@@ -86,6 +96,28 @@ export default {
       this.$v.$reset();
       this.email = '';
       this.password = '';
+    },
+    submitForm() {
+      this.$v.$touch();
+      if (this.submitStatus === ('ERROR' || 'PENDING')) return;
+      if (this.$v.$invalid) {
+        this.submitStatus = 'ERROR';
+        return;
+      } else {
+        this.submitStatus = 'PENDING';
+      }
+      this.axios
+        .post(`auth/${this.authType}`, {
+          email: this.email,
+          password: this.password,
+        })
+        .then(() => {
+          this.$router.push({ path: '/dashboard' });
+        })
+        .catch(err => {
+          alert(err.response.data.message);
+          this.submitStatus = null;
+        });
     },
   },
 };
