@@ -8,7 +8,7 @@
           </v-toolbar>
 
           <v-card-text>
-            <auth-form auth-type="register"></auth-form>
+            <auth-form auth-type="register" @authenticated="redirect" />
           </v-card-text>
         </v-card>
       </v-col>
@@ -22,6 +22,11 @@ export default {
   name: 'Register',
   components: {
     AuthForm,
+  },
+  methods: {
+    redirect() {
+      this.$router.push({ path: '/' });
+    },
   },
 };
 </script>

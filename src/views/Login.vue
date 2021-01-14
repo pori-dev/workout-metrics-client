@@ -8,7 +8,7 @@
           </v-toolbar>
 
           <v-card-text>
-            <auth-form auth-type="login"></auth-form>
+            <auth-form auth-type="login" @authenticated="redirect" />
           </v-card-text>
         </v-card>
       </v-col>
@@ -22,6 +22,11 @@ export default {
   name: 'Login',
   components: {
     AuthForm,
+  },
+  methods: {
+    redirect() {
+      this.$router.push({ path: '/' });
+    },
   },
 };
 </script>
