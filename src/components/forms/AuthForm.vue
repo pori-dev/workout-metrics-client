@@ -152,10 +152,7 @@ export default {
         .then(() => {
           this.$router.push({ path: '/dashboard' });
         })
-        .catch(err => {
-          this.showSnackbar({
-            text: err.response.data.message,
-          });
+        .catch(() => {
           this.submitStatus = null;
         });
     },
