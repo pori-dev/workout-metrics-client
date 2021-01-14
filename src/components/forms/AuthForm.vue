@@ -150,7 +150,7 @@ export default {
           password: this.password,
         })
         .then(() => {
-          this.$router.push({ path: '/dashboard' });
+          this.$emit('authenticated');
         })
         .catch(() => {
           this.submitStatus = null;
