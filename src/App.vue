@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <app-drawer></app-drawer>
+    <app-bar></app-bar>
     <v-main>
-      <app-bar></app-bar>
       <v-container class="fill-height" fluid>
         <v-row>
           <router-view></router-view>
