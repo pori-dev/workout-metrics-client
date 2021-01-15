@@ -9,17 +9,17 @@
         </v-row>
       </v-container>
     </v-main>
-    <wt-snackbar />
+    <app-snackbar />
   </v-app>
 </template>
 
 <script>
-import WtSnackbar from '@/components/WtSnackbar.vue';
+import AppSnackbar from '@/components/AppSnackbar.vue';
 import AppDrawer from '@/components/AppDrawer.vue';
 import AppBar from '@/components/AppBar.vue';
 
 export default {
   name: 'App',
-  components: { WtSnackbar, AppDrawer, AppBar },
+  components: { AppSnackbar, AppDrawer, AppBar },
 };
 </script>

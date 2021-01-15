@@ -18,8 +18,8 @@ export default {
     },
 
     closeSnackbar(state) {
-      state.snackbar.text = null;
       state.snackbar.visible = false;
+      state.snackbar.text = null;
       state.snackbar.timeout = 5000;
       state.snackbar.multiline = false;
     },
