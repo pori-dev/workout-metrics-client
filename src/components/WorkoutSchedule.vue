@@ -3,7 +3,7 @@
     <v-col cols="12" md="6">
       <v-date-picker
         v-model="date"
-        :events="functionEvent"
+        :events="eventsIndicator"
         :prev-icon="prevIcon"
         :next-icon="nextIcon"
         full-width
@@ -11,8 +11,10 @@
         elevation="1"
         @click:date="selectDate"
       ></v-date-picker>
+
       <template>
         <div class="text-center">
+          <!-- Todo: add close button to dialog component -->
           <v-dialog v-model="dialog" width="600">
             <v-card>
               <v-toolbar
@@ -31,29 +33,41 @@
                     </div>
                   </v-col>
                   <v-col cols="12" sm="7">
-                    <div class="d-flex justify-space-around">
+                    <div class="d-flex justify-end">
                       <v-btn
-                        v-if="showTodo"
+                        v-if="showTodoButton"
                         color="primary"
                         @click="dialog = false"
+                        class="ml-2"
                         >Todo</v-btn
                       >
-                      <v-btn color="green" dark @click="dialog = false"
+                      <v-btn
+                        class="ml-2"
+                        color="green"
+                        dark
+                        @click="dialog = false"
                         >Done</v-btn
                       >
-                      <v-btn color="red" dark @click="dialog = false"
+                      <v-btn
+                        class="ml-2"
+                        color="red"
+                        dark
+                        @click="dialog = false"
                         >Missed</v-btn
                       >
                     </div>
                   </v-col>
+                  <v-col v-if="showRemoveButton" class="mt-14 d-flex">
+                    <span class="text-h6">
+                      Or remove it from schedule:
+                    </span>
+                    <v-spacer></v-spacer>
+                    <v-btn fcolor="red" dark @click="dialog = false"
+                      >Remove</v-btn
+                    >
+                  </v-col>
                 </v-row>
               </v-card-text>
-
-              <v-card-actions class="justify-end">
-                <v-btn text @click="dialog = false">
-                  Close
-                </v-btn>
-              </v-card-actions>
             </v-card>
           </v-dialog>
         </div>
@@ -72,7 +86,7 @@ export default {
     nextIcon: mdiChevronRight,
     date: new Date().toISOString().substr(0, 10),
     // Todo: replace it with API response
-    schedule: [
+    schedules: [
       {
         id: 'ntehnetohu',
         date: '2021-01-23',
@@ -104,58 +118,78 @@ export default {
         status: 'missed',
       },
     ],
-    doneSessions: [],
-    todoSessions: [],
-    missedSessions: [],
-    indeterminateSessions: [],
-    formattedSelectedDate: null,
-    showTodo: null,
+    selectedScheduleItem: null,
+    selectedDate: null,
     dialog: false,
   }),
 
-  methods: {
-    functionEvent(date) {
-      if (this.todoSessions.includes(date)) {
-        return 'blue';
-      } else if (this.missedSessions.includes(date)) {
-        return 'red';
-      } else if (this.doneSessions.includes(date)) {
-        return 'green';
-      } else if (this.indeterminateSessions.includes(date)) {
-        return 'yellow';
-      }
-      return false;
+  computed: {
+    showTodoButton() {
+      return (
+        !isBefore(this.parsedSelectedDate, new Date()) ||
+        isToday(this.parsedSelectedDate)
+      );
     },
 
-    formatScheduleToSessions() {
-      this.schedule.forEach(scheduleItem => {
-        switch (scheduleItem.status) {
-          case 'done':
-            this.doneSessions.push(scheduleItem.date);
-            break;
-          case 'todo':
-            this.todoSessions.push(scheduleItem.date);
-            break;
-          case 'missed':
-            this.missedSessions.push(scheduleItem.date);
-            break;
-          case 'indeterminate':
-            this.indeterminateSessions.push(scheduleItem.date);
-            break;
+    showRemoveButton() {
+      return this.selectedScheduleItem && this.selectedScheduleItem.status;
+    },
+
+    parsedSelectedDate() {
+      return this.selectedDate ? parseISO(this.selectedDate) : null;
+    },
+
+    formattedSelectedDate() {
+      return this.selectedDate
+        ? format(this.parsedSelectedDate, 'EE MMM d')
+        : null;
+    },
+  },
+
+  methods: {
+    eventsIndicator(date) {
+      let eventColor = null;
+      this.schedules.forEach(schedule => {
+        if (schedule.date === date) {
+          switch (schedule.status) {
+            case 'done':
+              eventColor = 'green';
+              break;
+            case 'todo':
+              eventColor = 'blue';
+              break;
+            case 'missed':
+              eventColor = 'red';
+              break;
+            case 'indeterminate':
+              eventColor = 'yellow';
+              break;
+            default:
+              eventColor = false;
+          }
         }
       });
+      return eventColor;
+    },
+
+    setSelectedScheduleItem() {
+      const selectedScheduleIndex = this.schedules.findIndex(
+        item => item.date === this.selectedDate
+      );
+      const selectedScheduleItem =
+        this.schedules[selectedScheduleIndex] || null;
+      this.selectedScheduleItem = selectedScheduleItem;
+    },
+
+    showModal() {
+      this.dialog = true;
     },
 
     selectDate(date) {
-      const parsed = parseISO(date);
-      this.formattedSelectedDate = format(parsed, 'EE MMM d');
-      this.showTodo =
-        !isBefore(parsed, new Date()) || isToday(parsed, new Date());
-      this.dialog = true;
+      this.selectedDate = date;
+      this.setSelectedScheduleItem();
+      this.showModal();
     },
-  },
-  created() {
-    this.formatScheduleToSessions();
   },
 };
 </script>
