@@ -1,6 +1,5 @@
 'use strict';
 
-import Vue from 'vue';
 import axios from 'axios';
 import store from '@/store';
 
@@ -10,7 +9,7 @@ axios.defaults.baseURL = process.env.VUE_APP_API_BASE_URL;
 let config = {
   // baseURL: process.env.baseURL || process.env.apiUrl || ""
   // timeout: 60 * 1000, // Timeout
-  // withCredentials: true, // Check cross-site Access-Control
+  withCredentials: true, // Check cross-site Access-Control
 
   // if set to `true` let axios to handle and show errors with snackbars.
   // if you don't want to show error with snackbars or want
@@ -45,23 +44,4 @@ _axios.interceptors.response.use(
   }
 );
 
-Plugin.install = function(Vue) {
-  Vue.axios = _axios;
-  window.axios = _axios;
-  Object.defineProperties(Vue.prototype, {
-    axios: {
-      get() {
-        return _axios;
-      },
-    },
-    $axios: {
-      get() {
-        return _axios;
-      },
-    },
-  });
-};
-
-Vue.use(Plugin);
-
-export default Plugin;
+export default _axios;
