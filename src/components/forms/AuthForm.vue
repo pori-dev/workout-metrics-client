@@ -56,6 +56,9 @@ import { required, email, minLength } from 'vuelidate/lib/validators';
 import { mdiEmail } from '@mdi/js';
 import { mdiLock } from '@mdi/js';
 import { mapMutations } from 'vuex';
+import { RepositoryFactory } from '@/repositories/repository-factory';
+
+const authRepository = RepositoryFactory.get('auth');
 
 export default {
   name: 'AuthForm',
@@ -133,6 +136,7 @@ export default {
       return this.submitStatus === 'PENDING';
     },
   },
+
   methods: {
     ...mapMutations('snackbar', ['showSnackbar']),
     submitForm() {
@@ -144,17 +148,17 @@ export default {
       } else {
         this.submitStatus = 'PENDING';
       }
-      this.axios
-        .post(`auth/${this.authType}`, {
-          email: this.email,
-          password: this.password,
-        })
+
+      authRepository[this.authType](this.email, this.password)
         .then(() => {
           this.$emit('authenticated');
         })
         .catch(() => {
           this.submitStatus = null;
         });
+    },
+    logout() {
+      authRepository.logout();
     },
   },
 };

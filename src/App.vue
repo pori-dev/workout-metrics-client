@@ -4,10 +4,8 @@
       <app-drawer></app-drawer>
       <app-bar></app-bar>
       <v-main>
-        <v-container class="fill-height" fluid>
-          <v-row>
-            <router-view></router-view>
-          </v-row>
+        <v-container fluid>
+          <router-view></router-view>
         </v-container>
       </v-main>
     </template>

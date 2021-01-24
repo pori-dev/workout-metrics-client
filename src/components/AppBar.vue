@@ -4,12 +4,16 @@
       <v-icon v-text="menuIcon"></v-icon>
     </v-app-bar-nav-icon>
     <v-toolbar-title>{{ $route.name }}</v-toolbar-title>
+    <v-spacer />
+    <v-btn @click="logout" text>Logout</v-btn>
   </v-app-bar>
 </template>
 
 <script>
 import { mdiMenu } from '@mdi/js';
 import { mapMutations } from 'vuex';
+import { RepositoryFactory } from '@/repositories/repository-factory';
+const authRepository = RepositoryFactory.get('auth');
 
 export default {
   data() {
@@ -19,6 +23,11 @@ export default {
   },
   methods: {
     ...mapMutations(['toggleDrawer']),
+    logout() {
+      return authRepository
+        .logout()
+        .then(() => this.$router.push({ name: 'Login' }));
+    },
   },
 };
 </script>
