@@ -8,7 +8,10 @@
           </v-toolbar>
 
           <v-card-text>
-            <auth-form auth-type="login" @authenticated="redirect" />
+            <auth-form
+              auth-type="login"
+              @authenticated="authenticationHandler"
+            />
           </v-card-text>
         </v-card>
       </v-col>
@@ -24,8 +27,13 @@ export default {
     AuthForm,
   },
   methods: {
-    redirect() {
-      this.$router.push({ path: '/' });
+    authenticationHandler() {
+      localStorage.setItem('isAuthenticated', true);
+      if (this.$route.query.redirectTo) {
+        this.$router.push({ path: this.$route.query.redirectTo });
+      } else {
+        this.$router.push({ path: '/' });
+      }
     },
   },
 };
