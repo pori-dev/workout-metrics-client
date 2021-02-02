@@ -1,9 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
-import Register from '../views/Register.vue';
-import Login from '../views/Login.vue';
-import WeightPage from '../views/WeightPage.vue';
 
 Vue.use(VueRouter);
 
@@ -11,22 +7,23 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: () => import('../views/Home.vue'),
   },
   {
     path: '/register',
     name: 'Register',
-    component: Register,
+    component: () => import('../views/Register.vue'),
   },
   {
     path: '/login',
     name: 'Login',
-    component: Login,
+    component: () => import('../views/Login.vue'),
+    exact: true,
   },
   {
     path: '/weight',
     name: 'Weight',
-    component: WeightPage,
+    component: () => import('../views/WeightPage.vue'),
   },
 ];
 
@@ -36,4 +33,16 @@ const router = new VueRouter({
   routes,
 });
 
+router.beforeEach((to, from, next) => {
+  if (to.name === 'Register') {
+    return next();
+  }
+
+  const isAuthenticated = localStorage.getItem('isAuthenticated');
+  if (isAuthenticated !== 'true' && to.name !== 'Login') {
+    next({ name: 'Login', query: { redirectTo: to.path } });
+  } else {
+    next();
+  }
+});
 export default router;
