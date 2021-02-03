@@ -1,14 +1,12 @@
 <template>
-  <v-row justify="space-between">
-    <v-col cols="12" md="6">
-      <loading-overlay :loading="loading">
-        <workout-schedule-date-picker
-          :schedules="schedules"
-          @select-date="selectDateHandler"
-          @picker-date="fetchAllSchedulesByMonth"
-        />
-      </loading-overlay>
-    </v-col>
+  <div>
+    <loading-overlay :loading="loading">
+      <workout-schedule-date-picker
+        :schedules="schedules"
+        @select-date="selectDateHandler"
+        @picker-date="fetchAllSchedulesByMonth"
+      />
+    </loading-overlay>
     <workout-schedule-dialog
       v-if="dialog"
       :dialog.sync="dialog"
@@ -17,7 +15,7 @@
       @update="updateScheduleItem"
       @remove="removeScheduleItem"
     />
-  </v-row>
+  </div>
 </template>
 
 <script>
