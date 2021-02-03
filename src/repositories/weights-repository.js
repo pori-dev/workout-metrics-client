@@ -10,6 +10,14 @@ export default {
     });
   },
 
+  fetchAllFromDate(date) {
+    return Repository.get(resource, {
+      params: {
+        date,
+      },
+    });
+  },
+
   create(weight, measurementDate) {
     return Repository.post(resource, {
       weight,
