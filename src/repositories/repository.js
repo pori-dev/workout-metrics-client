@@ -23,6 +23,14 @@ const _axios = axios.create(config);
 
 // Add a response interceptor
 _axios.interceptors.response.use(null, function(error) {
+  // if there is no response from the API
+  if (!error.response) {
+    store.commit('snackbar/showSnackbar', {
+      text: error.message,
+    });
+    return Promise.reject();
+  }
+
   const { status, config } = error.response;
   // if is unauthorized, send a request to refresh token to
   // get a new access token. If refresh token is not valid
@@ -51,16 +59,12 @@ _axios.interceptors.response.use(null, function(error) {
 
   if (!error.config.isHandlerEnabled) {
     return Promise.reject(error);
-  }
-  if (error.response) {
+  } else {
     store.commit('snackbar/showSnackbar', {
       text: error.response.data.message,
     });
-  } else {
-    store.commit('snackbar/showSnackbar', {
-      text: error.message,
-    });
   }
+
   return Promise.reject(error);
 });
 export default _axios;

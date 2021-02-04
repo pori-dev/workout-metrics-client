@@ -79,7 +79,7 @@ export default {
         .then(res => {
           this.fillData(res.data);
         })
-        .catch(err => err)
+        .catch(() => {})
         .finally(() => (this.loading = false));
     },
 
