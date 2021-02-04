@@ -23,17 +23,24 @@ export default {
       },
       scales: {
         yAxes: [
-          // Todo: check if it is better to add min and max ticks
-          // to improve chart yAxes ui
-          // {
-          //  ticks: {
-          //    min: 20,
-          //    max: 100,
-          //  },
-          // },
+          {
+            ticks: {
+              fontColor: '#9e9e9e',
+            },
+            // Todo: check if it is better to add min and max ticks
+            // to improve chart yAxes ui
+            //  ticks: {
+            //    min: 20,
+            //    max: 100,
+            //  },
+          },
         ],
         xAxes: [
           {
+            ticks: {
+              fontColor: '#9e9e9e',
+              autoSkipPadding: 60,
+            },
             gridLines: {
               display: false,
             },

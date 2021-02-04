@@ -12,6 +12,7 @@
             <v-col cols="12">
               <v-text-field
                 v-model.trim="weight"
+                autofocus
                 label="Weight"
                 placeholder="80.9"
                 @blur="$v.weight.$touch()"

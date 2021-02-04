@@ -1,15 +1,21 @@
 <template>
-  <v-date-picker
-    v-model="currentDate"
-    :events="eventsIndicator"
-    :prev-icon="prevIcon"
-    :next-icon="nextIcon"
-    full-width
-    color="accent"
-    elevation="1"
-    @click:date="$emit('select-date', $event)"
-    @update:picker-date="$emit('picker-date', $event)"
-  />
+  <v-card>
+    <v-toolbar flat class="font-weight-medium grey--text">
+      Workout Scheduls
+    </v-toolbar>
+
+    <v-date-picker
+      v-model="currentDate"
+      :events="eventsIndicator"
+      :prev-icon="prevIcon"
+      :next-icon="nextIcon"
+      no-title
+      full-width
+      color="accent"
+      @click:date="$emit('select-date', $event)"
+      @update:picker-date="$emit('picker-date', $event)"
+    />
+  </v-card>
 </template>
 
 <script>

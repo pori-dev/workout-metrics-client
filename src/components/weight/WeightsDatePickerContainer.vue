@@ -1,24 +1,29 @@
 <template>
-  <v-row>
-    <v-col md="5">
-      <loading-overlay :loading="loading">
-        <weights-date-picker
-          :weights="weights"
-          @select-date="selectDateHandler"
-          @picker-date="fetchAllWeightsByMonth"
-        />
-      </loading-overlay>
+  <v-card height="100%" class="pb-2">
+    <v-card-title class="font-weight-medium grey--text">
+      Submitted Weights
+    </v-card-title>
+    <v-card-subtitle class="grey--text text--lighten-1 text-caption">
+      (select a date to add, edit, or delete a weight recrod)
+    </v-card-subtitle>
 
-      <weights-dialog
-        v-if="dialog"
-        :dialog.sync="dialog"
-        :selectedWeightItem="selectedWeightItem"
-        @create="createWeightRecord"
-        @update="updateWeightRecord"
-        @delete="deleteWeightRecord"
+    <loading-overlay :loading="loading">
+      <weights-date-picker
+        :weights="weights"
+        @select-date="selectDateHandler"
+        @picker-date="fetchAllWeightsByMonth"
       />
-    </v-col>
-  </v-row>
+    </loading-overlay>
+
+    <weights-dialog
+      v-if="dialog"
+      :dialog.sync="dialog"
+      :selectedWeightItem="selectedWeightItem"
+      @create="createWeightRecord"
+      @update="updateWeightRecord"
+      @delete="deleteWeightRecord"
+    />
+  </v-card>
 </template>
 
 <script>
