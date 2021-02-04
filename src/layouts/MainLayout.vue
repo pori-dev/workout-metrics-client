@@ -3,9 +3,11 @@
     <app-drawer></app-drawer>
     <app-bar></app-bar>
     <v-main>
-      <v-container fluid>
-        <slot />
-      </v-container>
+      <div class="pa-5">
+        <v-container fluid>
+          <slot />
+        </v-container>
+      </div>
     </v-main>
   </div>
 </template>
@@ -21,5 +23,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

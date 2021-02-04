@@ -5,9 +5,9 @@
     :allowed-dates="allowedDates"
     :prev-icon="prevIcon"
     :next-icon="nextIcon"
+    no-title
     full-width
     color="accent"
-    elevation="1"
     @click:date="$emit('select-date', $event)"
     @update:picker-date="$emit('picker-date', $event)"
   />
@@ -34,7 +34,7 @@ export default {
   methods: {
     weightRecordIndicator(date) {
       for (let weight of this.weights) {
-        if (weight.measurementDate === date) return 'blue';
+        if (weight.measurementDate === date) return 'blue lighten-2';
       }
     },
 

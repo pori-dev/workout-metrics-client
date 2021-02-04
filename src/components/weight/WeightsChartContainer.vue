@@ -1,19 +1,38 @@
 <template>
-  <v-card elevation="1">
+  <v-card height="100%" ref="chartContainer" class="pb-2">
     <loading-overlay :loading="loading">
-      <div class="d-flex justify-space-around">
-        <v-btn
-          v-for="(btn, i) in actionButtons"
-          :key="i"
-          v-bind="i === activeButtonIndex ? activeAttrs : ''"
-          @click="(activeButtonIndex = i), fetchAllFromDate()"
-          text
-          small
-          plain
-          >{{ btn }}</v-btn
-        >
-      </div>
-      <weights-chart :chart-data="dataCollection" :height="350" />
+      <v-card-title class="font-weight-medium grey--text" ref="chartTitle">
+        <v-row justify="space-between">
+          <v-col cols="12" sm="5">
+            <div class="">
+              Weight Records
+            </div>
+          </v-col>
+
+          <v-col cols="12" sm="7">
+            <div class="d-flex flex-wrap justify-end">
+              <v-btn
+                v-for="(btn, i) in actionButtons"
+                :key="i"
+                v-bind="i === activeButtonIndex ? activeAttrs : ''"
+                @click="(activeButtonIndex = i), fetchAllFromDate()"
+                class="grey--text"
+                text
+                small
+                plain
+                >{{ btn }}</v-btn
+              >
+            </div>
+          </v-col>
+        </v-row>
+      </v-card-title>
+      <weights-chart
+        key="same"
+        v-if="dataCollection"
+        :chart-data="dataCollection"
+        :styles="chartStyles"
+        min-height="300px"
+      />
     </loading-overlay>
   </v-card>
 </template>
@@ -34,37 +53,52 @@ export default {
 
   data: () => ({
     dataCollection: {},
-    actionButtons: ['1 Week', '1 Month', '3 Months', '6 Months', '1 Year'],
+    actionButtons: ['1W', '1M', '3M', '6M', '1Y'],
     activeButtonIndex: 1 /* 1 Month */,
     activeAttrs: {
       color: 'primary',
       outlined: true,
     },
     loading: false,
+    chartHeight: 0,
   }),
 
   computed: {
+    chartStyles() {
+      return {
+        height: `${this.chartHeight}px`,
+        'min-height': '300px',
+      };
+    },
     date() {
       const currentDate = new Date();
 
       const selectedPeriod = this.actionButtons[this.activeButtonIndex];
 
-      const [timeRangeInt, timeRangeType] = selectedPeriod.split(' ');
+      const [timeRangeInt, timeRangeType] = selectedPeriod.split('');
 
-      if (timeRangeType.includes('Week')) {
+      if (timeRangeType.includes('W')) {
         return subWeeks(currentDate, timeRangeInt);
       }
 
-      if (timeRangeType.includes('Month')) {
+      if (timeRangeType.includes('M')) {
         return subMonths(currentDate, timeRangeInt);
       }
 
-      if (timeRangeType.includes('Year')) {
+      if (timeRangeType.includes('Y')) {
         return subYears(currentDate, timeRangeInt);
       }
 
       return null;
     },
+  },
+
+  mounted() {
+    const chartTitleHeight = this.$refs.chartTitle.getBoundingClientRect()
+      .height;
+    const chartContainerHeight = this.$refs.chartContainer.$el.getBoundingClientRect()
+      .height;
+    this.chartHeight = chartContainerHeight - chartTitleHeight;
   },
 
   created() {
@@ -96,7 +130,8 @@ export default {
           {
             label: 'Weight',
             borderColor: '#1976d2',
-            backgroundColor: '#e3eefa',
+            backgroundColor: 'rgb(25, 118, 210, .08)',
+            lineTension: 0,
             data,
             pointHitRadius: 8,
           },
@@ -110,5 +145,3 @@ export default {
   },
 };
 </script>
-
-<style></style>
