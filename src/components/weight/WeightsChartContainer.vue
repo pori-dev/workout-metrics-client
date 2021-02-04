@@ -96,7 +96,8 @@ export default {
           {
             label: 'Weight',
             borderColor: '#1976d2',
-            backgroundColor: '#e3eefa',
+            lineTension: 0,
+            backgroundColor: 'rgb(25, 118, 210, .08)',
             data,
             pointHitRadius: 8,
           },
