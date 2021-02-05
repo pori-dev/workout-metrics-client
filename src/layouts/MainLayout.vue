@@ -1,13 +1,11 @@
 <template>
-  <div>
+  <div class="fill-height">
     <app-drawer></app-drawer>
-    <app-bar></app-bar>
-    <v-main>
-      <div class="pa-5">
-        <v-container fluid>
-          <slot />
-        </v-container>
-      </div>
+    <app-bar app></app-bar>
+    <v-main class="grey lighten-5 fill-height">
+      <v-container fluid class="pa-8">
+        <slot />
+      </v-container>
     </v-main>
   </div>
 </template>
