@@ -7,25 +7,29 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('../views/Home.vue'),
+    component: loadView('Home'),
   },
   {
     path: '/register',
     name: 'Register',
-    component: () => import('../views/Register.vue'),
+    component: loadView('Register'),
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => import('../views/Login.vue'),
+    component: loadView('Login'),
     exact: true,
   },
   {
     path: '/weight',
     name: 'Weight',
-    component: () => import('../views/WeightPage.vue'),
+    component: loadView('WeightPage'),
   },
 ];
+
+function loadView(view) {
+  return () => import(`@/views/${view}.vue`);
+}
 
 const router = new VueRouter({
   mode: 'history',
