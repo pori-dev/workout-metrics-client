@@ -8,7 +8,7 @@
       (select a date to add, edit, or delete a schedule)
     </v-card-subtitle>
 
-    <v-date-picker
+    <date-picker
       v-model="currentDate"
       :events="eventsIndicator"
       :prev-icon="prevIcon"
@@ -35,6 +35,7 @@
 <script>
 import { mdiChevronLeft, mdiChevronRight } from '@mdi/js';
 import { STATUS_COLOR } from '@/common/enums/status-colors.enum';
+import DatePicker from '@/components/common/DatePicker.vue';
 
 export default {
   props: {
@@ -42,6 +43,10 @@ export default {
       default: () => [],
       type: Array,
     },
+  },
+
+  components: {
+    DatePicker,
   },
 
   data: () => ({
@@ -90,11 +95,5 @@ export default {
 <style lang="scss" scoped>
 .status-indicator ::v-deep .v-badge__badge {
   inset: 2px 0 0 -12px !important;
-}
-
-::v-deep .v-date-picker-table__events div {
-  width: 16px;
-  height: 2px;
-  border-radius: 2px;
 }
 </style>

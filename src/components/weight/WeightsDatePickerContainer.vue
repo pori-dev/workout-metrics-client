@@ -1,12 +1,5 @@
 <template>
-  <v-card height="100%" class="pb-2">
-    <v-card-title class="font-weight-medium grey--text">
-      Submitted Weights
-    </v-card-title>
-    <v-card-subtitle class="grey--text text--lighten-1 text-caption">
-      (select a date to add, edit, or delete a weight recrod)
-    </v-card-subtitle>
-
+  <div>
     <loading-overlay :loading="loading">
       <weights-date-picker
         :weights="weights"
@@ -23,7 +16,7 @@
       @update="updateWeightRecord"
       @delete="deleteWeightRecord"
     />
-  </v-card>
+  </div>
 </template>
 
 <script>
