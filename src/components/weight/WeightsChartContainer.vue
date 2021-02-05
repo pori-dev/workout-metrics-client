@@ -26,10 +26,12 @@
           </v-col>
         </v-row>
       </v-card-title>
+
       <weights-chart
         key="same"
         v-if="dataCollection"
         :chart-data="dataCollection"
+        :options="chartOptions"
         :styles="chartStyles"
         min-height="300px"
       />
@@ -41,8 +43,10 @@
 import WeightsChart from './WeightsChart.vue';
 import LoadingOverlay from '@/components/LoadingOverlay.vue';
 import { subWeeks, subMonths, subYears, format, parseISO } from 'date-fns';
-import { RepositoryFactory } from '@/repositories/repository-factory';
+import { weightsChartOptions } from './weights-chart-options';
 
+// repository
+import { RepositoryFactory } from '@/repositories/repository-factory';
 const weightsRepository = RepositoryFactory.get('weights');
 
 export default {
@@ -61,6 +65,7 @@ export default {
     },
     loading: false,
     chartHeight: 0,
+    chartOptions: weightsChartOptions,
   }),
 
   computed: {
@@ -70,6 +75,7 @@ export default {
         'min-height': '300px',
       };
     },
+
     date() {
       const currentDate = new Date();
 
