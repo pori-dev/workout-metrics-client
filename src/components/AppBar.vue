@@ -24,10 +24,13 @@ export default {
   methods: {
     ...mapMutations(['toggleDrawer']),
     logout() {
-      return authRepository.logout().then(() => {
-        localStorage.setItem('isAuthenticated', false);
-        this.$router.push({ name: 'Login' });
-      });
+      return authRepository
+        .logout()
+        .catch(() => {})
+        .finally(() => {
+          localStorage.setItem('isAuthenticated', false);
+          this.$router.push({ name: 'Login' });
+        });
     },
   },
 };
