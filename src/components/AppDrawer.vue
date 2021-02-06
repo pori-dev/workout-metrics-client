@@ -3,10 +3,11 @@
     <v-list dark color="primary">
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="title">Wrokout Tracker</v-list-item-title>
+          <v-list-item-title class="title">Workout Tracker</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
+
     <v-list>
       <v-list-item-group color="primary">
         <v-list-item
@@ -17,6 +18,7 @@
           <v-list-item-icon>
             <v-icon v-text="item.icon"></v-icon>
           </v-list-item-icon>
+
           <v-list-item-content>
             <v-list-item-title v-text="item.title"></v-list-item-title>
           </v-list-item-content>
