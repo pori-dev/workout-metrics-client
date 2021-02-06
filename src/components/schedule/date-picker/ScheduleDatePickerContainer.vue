@@ -1,13 +1,13 @@
 <template>
   <div>
     <loading-overlay :loading="loading">
-      <workout-schedule-date-picker
+      <schedule-date-picker
         :schedules="schedules"
         @select-date="selectDateHandler"
         @picker-date="fetchAllSchedulesByMonth"
       />
     </loading-overlay>
-    <workout-schedule-dialog
+    <schedule-date-picker-dialog
       v-if="dialog"
       :dialog.sync="dialog"
       :selectedScheduleItem="selectedScheduleItem"
@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import WorkoutScheduleDatePicker from './WorkoutScheduleDatePicker.vue';
-import WorkoutScheduleDialog from './WorkoutScheduleDialog.vue';
+import ScheduleDatePicker from './ScheduleDatePicker.vue';
+import ScheduleDatePickerDialog from './ScheduleDatePickerDialog.vue';
 import LoadingOverlay from '@/components/LoadingOverlay.vue';
 import { RepositoryFactory } from '@/repositories/repository-factory';
 
@@ -28,8 +28,8 @@ const schedulesRepository = RepositoryFactory.get('schedules');
 
 export default {
   components: {
-    WorkoutScheduleDatePicker,
-    WorkoutScheduleDialog,
+    ScheduleDatePicker,
+    ScheduleDatePickerDialog,
     LoadingOverlay,
   },
 
