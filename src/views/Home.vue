@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import WorkoutScheduleContainer from '@/components/workout-schedule/WorkoutScheduleContainer.vue';
+import WorkoutScheduleContainer from '@/components/schedule/WorkoutScheduleContainer.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
 import WeightsChartContainer from '@/components/weight/WeightsChartContainer.vue';
 
