@@ -2,7 +2,7 @@
   <main-layout>
     <v-row>
       <v-col cols="12" md="4">
-        <workout-schedule-container />
+        <workout-schedule-date-picker-container />
       </v-col>
     </v-row>
   </main-layout>
@@ -10,12 +10,12 @@
 
 <script>
 import MainLayout from '@/layouts/MainLayout.vue';
-import WorkoutScheduleContainer from '@/components/schedule/WorkoutScheduleContainer.vue';
+import WorkoutScheduleDatePickerContainer from '@/components/schedule/WorkoutScheduleDatePickerContainer.vue';
 
 export default {
   components: {
     MainLayout,
-    WorkoutScheduleContainer,
+    WorkoutScheduleDatePickerContainer,
   },
 };
 </script>
