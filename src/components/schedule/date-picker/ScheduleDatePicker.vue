@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card height="100%">
     <v-card-title class="font-weight-medium grey--text">
       Workout Schedule
     </v-card-title>
@@ -8,17 +8,19 @@
       (select a date to add, edit, or delete a schedule)
     </v-card-subtitle>
 
-    <date-picker
-      v-model="currentDate"
-      :events="eventsIndicator"
-      :prev-icon="prevIcon"
-      :next-icon="nextIcon"
-      no-title
-      full-width
-      color="accent"
-      @click:date="$emit('select-date', $event)"
-      @update:picker-date="$emit('picker-date', $event)"
-    />
+    <loading-overlay :loading="loading">
+      <date-picker
+        v-model="currentDate"
+        :events="eventsIndicator"
+        :prev-icon="prevIcon"
+        :next-icon="nextIcon"
+        no-title
+        full-width
+        color="accent"
+        @click:date="$emit('select-date', $event)"
+        @update:picker-date="$emit('picker-date', $event)"
+      />
+    </loading-overlay>
 
     <v-card-text
       class="pl-6 d-flex justify-space-between text-caption flex-wrap grey--text text--darken-0"
@@ -36,6 +38,7 @@
 import { mdiChevronLeft, mdiChevronRight } from '@mdi/js';
 import { STATUS_COLOR } from '@/common/enums/status-colors.enum';
 import DatePicker from '@/components/common/DatePicker.vue';
+import LoadingOverlay from '@/components/LoadingOverlay.vue';
 
 export default {
   props: {
@@ -43,10 +46,16 @@ export default {
       default: () => [],
       type: Array,
     },
+
+    loading: {
+      default: false,
+      type: Boolean,
+    },
   },
 
   components: {
     DatePicker,
+    LoadingOverlay,
   },
 
   data: () => ({

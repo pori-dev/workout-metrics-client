@@ -4,7 +4,8 @@
       <v-col cols="12" md="4">
         <schedule-date-picker-container />
       </v-col>
-      <v-col cols="12" md="4">
+
+      <v-col cols="12" md="5">
         <schedule-generator-container />
       </v-col>
     </v-row>

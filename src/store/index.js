@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import snackbar from './modules/snackbar.js';
+import scheduleGenerator from './modules/schedule-generator';
 
 Vue.use(Vuex);
 
@@ -16,5 +17,6 @@ export default new Vuex.Store({
   actions: {},
   modules: {
     snackbar,
+    scheduleGenerator,
   },
 });

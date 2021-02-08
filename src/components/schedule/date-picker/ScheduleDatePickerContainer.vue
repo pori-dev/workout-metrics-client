@@ -1,12 +1,13 @@
 <template>
-  <div>
-    <loading-overlay :loading="loading">
-      <schedule-date-picker
-        :schedules="schedules"
-        @select-date="selectDateHandler"
-        @picker-date="fetchAllSchedulesByMonth"
-      />
-    </loading-overlay>
+  <div class="fill-height">
+    <schedule-date-picker
+      :schedules="schedules"
+      :loading="loading"
+      @select-date="selectDateHandler"
+      @picker-date="pickerDateHandler"
+      ref="scheduleDatePicker"
+    />
+
     <schedule-date-picker-dialog
       v-if="dialog"
       :dialog.sync="dialog"
@@ -21,8 +22,8 @@
 <script>
 import ScheduleDatePicker from './ScheduleDatePicker.vue';
 import ScheduleDatePickerDialog from './ScheduleDatePickerDialog.vue';
-import LoadingOverlay from '@/components/LoadingOverlay.vue';
 import { RepositoryFactory } from '@/repositories/repository-factory';
+import { mapMutations } from 'vuex';
 
 const schedulesRepository = RepositoryFactory.get('schedules');
 
@@ -30,24 +31,39 @@ export default {
   components: {
     ScheduleDatePicker,
     ScheduleDatePickerDialog,
-    LoadingOverlay,
   },
 
   data: () => ({
     schedules: [],
     selectedScheduleItem: {},
     selectedDate: null,
+    activevatedMonth: null,
     dialog: false,
     loading: false,
   }),
 
   computed: {
+    refetchSchedule() {
+      return this.$store.state.scheduleGenerator.refetchSchedule;
+    },
+
     findScheduleItemIndex() {
       return this.schedules.findIndex(item => item.date === this.selectedDate);
     },
   },
 
+  watch: {
+    refetchSchedule(shouldRefetchSchedule) {
+      if (shouldRefetchSchedule) {
+        this.fetchAllSchedulesByMonth(this.activevatedMonth);
+        this.setRefetchSchedule(false);
+      }
+    },
+  },
+
   methods: {
+    ...mapMutations('scheduleGenerator', ['setRefetchSchedule']),
+
     setSelectedScheduleItem() {
       if (this.findScheduleItemIndex > -1) {
         this.selectedScheduleItem = this.schedules[this.findScheduleItemIndex];
@@ -72,6 +88,11 @@ export default {
 
     // because of date-picker picker-date update emit, it gets called when component instance gets mounted.
     // So there is no need to call on `created` hook.
+    pickerDateHandler(month) {
+      this.activevatedMonth = month;
+      this.fetchAllSchedulesByMonth(month);
+    },
+
     fetchAllSchedulesByMonth(month) {
       this.loading = true;
       schedulesRepository
