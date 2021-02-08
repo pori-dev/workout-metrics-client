@@ -46,7 +46,7 @@ export default {
           icon: mdiHomeVariant,
         },
         {
-          title: 'Workout Schedule',
+          title: 'Schedule',
           href: '/schedule',
           icon: mdiCalendar,
         },

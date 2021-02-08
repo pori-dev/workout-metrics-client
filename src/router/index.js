@@ -25,6 +25,11 @@ const routes = [
     name: 'Weight',
     component: loadView('WeightPage'),
   },
+  {
+    path: '/schedule',
+    name: 'Schedule',
+    component: loadView('SchedulePage'),
+  },
 ];
 
 function loadView(view) {

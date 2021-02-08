@@ -9,6 +9,13 @@ export default {
     });
   },
 
+  createToDos(date, weekdays) {
+    return Repository.post(`${resource}/recurring`, {
+      date,
+      weekdays,
+    });
+  },
+
   fetchAllByMonth(date) {
     return Repository.get(resource, {
       params: {
