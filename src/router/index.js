@@ -18,7 +18,6 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: loadView('Login'),
-    exact: true,
   },
   {
     path: '/weight',
