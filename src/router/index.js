@@ -30,6 +30,15 @@ const routes = [
     name: 'Schedule',
     component: loadView('SchedulePage'),
   },
+  {
+    path: '/404',
+    name: '404',
+    component: loadView('404'),
+  },
+  {
+    path: '*',
+    redirect: '404',
+  },
 ];
 
 function loadView(view) {
