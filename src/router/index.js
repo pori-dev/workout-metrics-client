@@ -30,6 +30,11 @@ const routes = [
     name: 'Schedule',
     component: loadView('SchedulePage'),
   },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: loadView('ProfilePage'),
+  },
 ];
 
 function loadView(view) {

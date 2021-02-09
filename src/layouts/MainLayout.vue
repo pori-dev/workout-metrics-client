@@ -2,7 +2,7 @@
   <div class="fill-height">
     <app-drawer></app-drawer>
     <app-bar app></app-bar>
-    <v-main class="grey lighten-5 fill-height">
+    <v-main class="grey lighten-3 fill-height">
       <v-container fluid class="pa-8">
         <slot />
       </v-container>
