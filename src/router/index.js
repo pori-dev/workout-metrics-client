@@ -18,7 +18,6 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: loadView('Login'),
-    exact: true,
   },
   {
     path: '/weight',
@@ -29,6 +28,15 @@ const routes = [
     path: '/schedule',
     name: 'Schedule',
     component: loadView('SchedulePage'),
+  },
+  {
+    path: '/404',
+    name: '404',
+    component: loadView('404'),
+  },
+  {
+    path: '*',
+    redirect: '404',
   },
 ];
 
