@@ -30,6 +30,11 @@ const routes = [
     component: loadView('SchedulePage'),
   },
   {
+    path: '/profile',
+    name: 'Profile',
+    component: loadView('ProfilePage'),
+  },
+  {
     path: '/404',
     name: '404',
     component: loadView('404'),
