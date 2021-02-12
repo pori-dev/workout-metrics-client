@@ -1,25 +1,11 @@
 <template>
   <main-layout>
     <v-sheet class="pa-2">
-      <v-form @submit.prevent="submit">
+      <v-form @submit.prevent>
         <v-container>
           <v-row justify="space-between">
             <v-col cols="12" sm="6" md="5">
-              <v-text-field
-                v-model="name"
-                label="Name"
-                @blur="$v.name.$touch()"
-                :error-messages="nameError"
-              />
-            </v-col>
-
-            <v-col cols="12" sm="6" md="5">
-              <v-text-field
-                v-model="email"
-                label="Email"
-                @blur="$v.email.$touch()"
-                :error-messages="emailError"
-              />
+              <v-text-field v-model="name" label="Name" />
             </v-col>
 
             <v-col cols="12" sm="6" md="5">
@@ -33,30 +19,13 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="6" md="5">
-              <v-file-input
-                v-if="!hasAvatar || showAvatarField"
-                :rules="avatarFileRules"
-                :show-size="1000"
-                small-chips
-                accept="image/png, image/jpeg, text"
-                :prepend-icon="cameraIcon"
-                label="Upload an profile image"
-                v-model="avatarFile"
-              />
-              <div v-else>
-                <v-avatar color="primary" size="62">
-                  test
-                </v-avatar>
-
-                <v-btn @click="showAvatarField = true" color="grey" small text
-                  >Change</v-btn
-                >
-              </div>
-            </v-col>
-
             <v-col cols="12" class="mt-8">
-              <v-btn color="primary">Submit</v-btn>
+              <v-btn
+                color="primary"
+                @click="submit"
+                :disabled="isSubmitDisabled"
+                >Submit</v-btn
+              >
             </v-col>
           </v-row>
         </v-container>
@@ -67,9 +36,12 @@
 
 <script>
 import { validationMixin } from 'vuelidate';
-import { required, integer, email } from 'vuelidate/lib/validators';
+import { integer } from 'vuelidate/lib/validators';
 import MainLayout from '@/layouts/MainLayout.vue';
-import { mdiCamera } from '@mdi/js';
+import { mapMutations } from 'vuex';
+
+import { RepositoryFactory } from '@/repositories/repository-factory';
+const userRepository = RepositoryFactory.get('user');
 
 export default {
   mixins: [validationMixin],
@@ -79,38 +51,18 @@ export default {
   },
 
   data: () => ({
-    name: 'Test name',
-    email: 'test@test.test',
-    height: '134',
-    cameraIcon: mdiCamera,
-    avatarFileRules: [
-      value =>
-        !value ||
-        value.size < 2000 ||
-        'Avatar size should be less than 100 MB!',
-    ],
-    avatarFile: null,
-    hasAvatar: true,
-    showAvatarField: false,
+    name: '',
+    height: '',
+    submitStatus: null,
   }),
 
+  validations: {
+    height: { integer },
+  },
+
   computed: {
-    nameError() {
-      if (this.$v.name.$dirty && !this.$v.name.required) {
-        return 'Name is required';
-      }
-      return null;
-    },
-
-    emailError() {
-      if (!this.$v.email.$dirty) return null;
-
-      if (!this.$v.email.required) {
-        return 'Email is required';
-      } else if (!this.$v.email.email) {
-        return 'Email must be valid';
-      }
-      return null;
+    isSubmitDisabled() {
+      return this.submitStatus === 'PENDING';
     },
 
     heightError() {
@@ -121,10 +73,38 @@ export default {
     },
   },
 
-  validations: {
-    name: { required },
-    email: { required, email },
-    height: { integer },
+  methods: {
+    ...mapMutations('snackbar', ['showSnackbar']),
+
+    submit() {
+      this.$v.$touch();
+      if (this.$v.$invalid || this.submitStatus === 'PENDING') return;
+
+      this.submitStatus = 'PENDING';
+
+      userRepository
+        .update({
+          name: this.name,
+          height: +this.height,
+        })
+        .then(() => {
+          this.showSnackbar({ text: 'updated Successfully' });
+        })
+        .catch(() => {})
+        .finally(() => {
+          this.submitStatus = null;
+        });
+    },
+  },
+
+  created() {
+    userRepository
+      .fetch()
+      .then(({ data }) => {
+        this.name = data.profile.name;
+        this.height = data.profile.height;
+      })
+      .catch(() => {});
   },
 };
 </script>
