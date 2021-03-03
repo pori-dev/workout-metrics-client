@@ -22,14 +22,10 @@
       />
     </loading-overlay>
 
-    <v-card-text
-      class="pl-6 d-flex justify-space-between text-caption flex-wrap grey--text text--darken-0"
-    >
-      <div v-for="status in statuses" :key="status.text">
-        <v-badge class="status-indicator" :color="status.color" dot left>
-          <span>{{ status.text }}</span>
-        </v-badge>
-      </div>
+    <v-card-text>
+      <schedule-statuses
+        class="d-flex justify-space-between text-caption flex-wrap grey--text text--darken-0"
+      />
     </v-card-text>
   </v-card>
 </template>
@@ -39,6 +35,7 @@ import { mdiChevronLeft, mdiChevronRight } from '@mdi/js';
 import { STATUS_COLOR } from '@/common/enums/status-colors.enum';
 import DatePicker from '@/components/common/DatePicker.vue';
 import LoadingOverlay from '@/components/LoadingOverlay.vue';
+import ScheduleStatuses from '@/components/schedule/ScheduleStatuses.vue';
 
 export default {
   props: {
@@ -56,6 +53,7 @@ export default {
   components: {
     DatePicker,
     LoadingOverlay,
+    ScheduleStatuses,
   },
 
   data: () => ({
@@ -63,29 +61,6 @@ export default {
     nextIcon: mdiChevronRight,
     currentDate: new Date().toISOString().substr(0, 10),
   }),
-
-  computed: {
-    statuses() {
-      return [
-        {
-          text: 'Todo',
-          color: STATUS_COLOR['todo'],
-        },
-        {
-          text: 'Done',
-          color: STATUS_COLOR['done'],
-        },
-        {
-          text: 'Missed',
-          color: STATUS_COLOR['missed'],
-        },
-        {
-          text: 'Indeterminate',
-          color: STATUS_COLOR['indeterminate'],
-        },
-      ];
-    },
-  },
 
   methods: {
     eventsIndicator(date) {
