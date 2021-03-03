@@ -33,4 +33,8 @@ export default {
   remove(id) {
     return Repository.delete(`${resource}/${id}`);
   },
+
+  fetchStatistics() {
+    return Repository.get(`${resource}/statistics`);
+  },
 };
