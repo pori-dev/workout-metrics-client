@@ -4,8 +4,13 @@
       <v-col cols="12" md="4">
         <schedule-date-picker-container />
       </v-col>
+
       <v-col cols="12" md="8">
         <weights-chart-container />
+      </v-col>
+
+      <v-col cols="12" md="8">
+        <schedule-statistics-chart-container />
       </v-col>
     </v-row>
   </main-layout>
@@ -15,6 +20,7 @@
 import ScheduleDatePickerContainer from '@/components/schedule/date-picker/ScheduleDatePickerContainer.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
 import WeightsChartContainer from '@/components/weight/WeightsChartContainer.vue';
+import ScheduleStatisticsChartContainer from '@/components/schedule/statistics/ScheduleStatisticsChartContainer.vue';
 
 export default {
   name: 'Home',
@@ -22,6 +28,7 @@ export default {
     MainLayout,
     ScheduleDatePickerContainer,
     WeightsChartContainer,
+    ScheduleStatisticsChartContainer,
   },
 };
 </script>
