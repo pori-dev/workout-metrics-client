@@ -29,11 +29,9 @@
 
       <weights-chart
         key="same"
-        v-if="dataCollection"
         :chart-data="dataCollection"
         :options="chartOptions"
-        :styles="chartStyles"
-        min-height="300px"
+        height="364px"
       />
     </loading-overlay>
   </v-card>
@@ -69,13 +67,6 @@ export default {
   }),
 
   computed: {
-    chartStyles() {
-      return {
-        height: `${this.chartHeight}px`,
-        'min-height': '300px',
-      };
-    },
-
     date() {
       const currentDate = new Date();
 
