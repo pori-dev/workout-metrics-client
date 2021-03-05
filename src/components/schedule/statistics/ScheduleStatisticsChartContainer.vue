@@ -2,7 +2,7 @@
   <v-card height="100%" ref="chartContainer" class="pb-2">
     <loading-overlay :loading="loading">
       <v-card-title class="font-weight-medium grey--text" ref="chartTitle">
-        Workouts Statistics
+        Workout Statistics
       </v-card-title>
 
       <schedule-statistics-chart
