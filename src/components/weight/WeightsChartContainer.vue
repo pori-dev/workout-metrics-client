@@ -31,7 +31,7 @@
         key="same"
         :chart-data="dataCollection"
         :options="chartOptions"
-        :height="364"
+        :styles="chartStyle"
       />
     </loading-overlay>
   </v-card>
@@ -87,6 +87,13 @@ export default {
       }
 
       return null;
+    },
+
+    chartStyle() {
+      return {
+        height: `${this.chartHeight}px`,
+        position: 'relative',
+      };
     },
   },
 
