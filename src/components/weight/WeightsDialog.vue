@@ -108,7 +108,7 @@ export default {
     },
 
     parsedSelectedDate() {
-      return parseISO(this.selectedWeightItem.measurementDate);
+      return parseISO(this.selectedWeightItem.date);
     },
 
     formattedSelectedDate() {

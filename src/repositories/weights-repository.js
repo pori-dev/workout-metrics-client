@@ -18,10 +18,10 @@ export default {
     });
   },
 
-  create(weight, measurementDate) {
+  create(weight, date) {
     return Repository.post(resource, {
       weight,
-      measurementDate,
+      date,
     });
   },
 

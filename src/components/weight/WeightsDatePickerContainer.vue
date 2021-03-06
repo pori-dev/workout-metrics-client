@@ -48,7 +48,7 @@ export default {
   computed: {
     findWeightItemIndexByDate() {
       return this.weights.findIndex(
-        weightItem => weightItem.measurementDate === this.selectedDate
+        weightItem => weightItem.date === this.selectedDate
       );
     },
 
@@ -67,7 +67,7 @@ export default {
         this.selectedWeightItem = this.weights[this.findWeightItemIndexByDate];
       } else {
         this.selectedWeightItem = {
-          measurementDate: this.selectedDate,
+          date: this.selectedDate,
           id: null,
           weight: null,
         };
