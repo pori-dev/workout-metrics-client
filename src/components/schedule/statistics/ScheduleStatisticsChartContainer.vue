@@ -1,5 +1,5 @@
 <template>
-  <v-card height="100%" ref="chartContainer" class="pb-2">
+  <v-card height="100%" ref="chartContainer">
     <loading-overlay :loading="loading">
       <v-card-title class="font-weight-medium grey--text" ref="chartTitle">
         Workout Statistics
@@ -8,7 +8,7 @@
       <schedule-statistics-chart
         :chart-data="statisticsData"
         :options="chartOptions"
-        :height="360"
+        :styles="chartStyle"
       />
     </loading-overlay>
   </v-card>
@@ -30,12 +30,30 @@ export default {
 
   data: () => ({
     loading: false,
+    chartHeight: 0,
     statisticsData: {},
     chartOptions: scheduleStatisticsChartOptions,
   }),
 
+  computed: {
+    chartStyle() {
+      return {
+        height: `${this.chartHeight}px`,
+        position: 'relative',
+      };
+    },
+  },
+
   created() {
     this.fetchStatistics();
+  },
+
+  mounted() {
+    const chartTitleHeight = this.$refs.chartTitle.getBoundingClientRect()
+      .height;
+    const chartContainerHeight = this.$refs.chartContainer.$el.getBoundingClientRect()
+      .height;
+    this.chartHeight = chartContainerHeight - chartTitleHeight;
   },
 
   methods: {
@@ -51,6 +69,7 @@ export default {
           this.loading = false;
         });
     },
+
     fillStatisticsData(statistics) {
       const data = Object.keys(statistics).map(key => statistics[key]);
       this.statisticsData = {
