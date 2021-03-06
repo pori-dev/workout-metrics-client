@@ -5,7 +5,7 @@
         Workout Statistics
       </v-card-title>
 
-      <v-card-text>
+      <v-card-text class="pb-2">
         <schedule-statuses :counts="counts" />
       </v-card-text>
     </loading-overlay>

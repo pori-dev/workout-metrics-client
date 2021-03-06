@@ -34,4 +34,15 @@ export default {
   delete(id) {
     return Repository.delete(`${resource}/${id}`);
   },
+
+  createGoal(goalWeight, goalDate) {
+    return Repository.post(`${resource}/goal`, {
+      weight: goalWeight,
+      date: goalDate,
+    });
+  },
+
+  fetchWeightGoal() {
+    return Repository.get(`${resource}/goal`);
+  },
 };
