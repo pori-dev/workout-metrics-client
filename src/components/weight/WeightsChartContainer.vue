@@ -31,7 +31,7 @@
         key="same"
         :chart-data="dataCollection"
         :options="chartOptions"
-        height="364px"
+        :height="364"
       />
     </loading-overlay>
   </v-card>
