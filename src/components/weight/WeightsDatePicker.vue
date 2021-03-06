@@ -48,7 +48,7 @@ export default {
   methods: {
     weightRecordIndicator(date) {
       for (let weight of this.weights) {
-        if (weight.measurementDate === date) return 'blue lighten-2';
+        if (weight.date === date) return 'blue lighten-2';
       }
     },
 

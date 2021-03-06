@@ -116,7 +116,7 @@ export default {
 
     fillData(weights) {
       const labels = weights.map(item => {
-        return this.formatDate(item.measurementDate);
+        return this.formatDate(item.date);
       });
 
       const data = weights.map(item => item.weight);
