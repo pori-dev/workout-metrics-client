@@ -41,4 +41,8 @@ export default {
       date: goalDate,
     });
   },
+
+  fetchWeightGoal() {
+    return Repository.get(`${resource}/goal`);
+  },
 };

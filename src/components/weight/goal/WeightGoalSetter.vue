@@ -91,9 +91,10 @@ export default {
     ...mapMutations('snackbar', ['showSnackbar']),
     submitGoal() {
       this.$v.$touch();
+      if (this.$v.$invalid) return;
+
       this.loading = true;
 
-      if (this.$v.$invalid) return;
       weightsRepository
         .createGoal(this.goalWeight, this.goalDate)
         .then(() => {

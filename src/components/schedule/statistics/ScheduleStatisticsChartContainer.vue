@@ -8,7 +8,7 @@
       <schedule-statistics-chart
         :chart-data="statisticsData"
         :options="chartOptions"
-        :height="320"
+        :height="360"
       />
     </loading-overlay>
   </v-card>
