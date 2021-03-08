@@ -37,7 +37,7 @@ const routes = [
   {
     path: '/404',
     name: '404',
-    component: loadView('404'),
+    component: loadView('404Page'),
   },
   {
     path: '*',
