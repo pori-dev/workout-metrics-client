@@ -7,17 +7,17 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: loadView('Home'),
+    component: loadView('HomePage'),
   },
   {
     path: '/register',
     name: 'Register',
-    component: loadView('Register'),
+    component: loadView('RegisterPage'),
   },
   {
     path: '/login',
     name: 'Login',
-    component: loadView('Login'),
+    component: loadView('LoginPage'),
   },
   {
     path: '/weight',
@@ -37,7 +37,7 @@ const routes = [
   {
     path: '/404',
     name: '404',
-    component: loadView('404'),
+    component: loadView('404Page'),
   },
   {
     path: '*',

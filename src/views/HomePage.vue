@@ -25,7 +25,7 @@
 <script>
 import ScheduleDatePickerContainer from '@/components/schedule/date-picker/ScheduleDatePickerContainer.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
-import WeightsChartContainer from '@/components/weight/WeightsChartContainer.vue';
+import WeightsChartContainer from '@/components/weight/chart/WeightsChartContainer.vue';
 import ScheduleStatisticsChartContainer from '@/components/schedule/statistics/ScheduleStatisticsChartContainer.vue';
 import ScheduleStatistics from '@/components/schedule/statistics/ScheduleStatistics.vue';
 import WeightGoalDetails from '../components/weight/goal/WeightGoalDetails.vue';

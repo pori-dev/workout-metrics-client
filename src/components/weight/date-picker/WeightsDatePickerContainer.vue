@@ -8,7 +8,7 @@
       />
     </loading-overlay>
 
-    <weights-dialog
+    <weights-date-picker-dialog
       v-if="dialog"
       :dialog.sync="dialog"
       :selectedWeightItem="selectedWeightItem"
@@ -21,8 +21,8 @@
 
 <script>
 import WeightsDatePicker from './WeightsDatePicker.vue';
-import WeightsDialog from './WeightsDialog.vue';
-import LoadingOverlay from '@/components/LoadingOverlay.vue';
+import WeightsDatePickerDialog from './WeightsDatePickerDialog.vue';
+import LoadingOverlay from '@/components/common/LoadingOverlay.vue';
 
 import { mapMutations } from 'vuex';
 
@@ -33,7 +33,7 @@ const weightsRepository = RepositoryFactory.get('weights');
 export default {
   components: {
     WeightsDatePicker,
-    WeightsDialog,
+    WeightsDatePickerDialog,
     LoadingOverlay,
   },
 

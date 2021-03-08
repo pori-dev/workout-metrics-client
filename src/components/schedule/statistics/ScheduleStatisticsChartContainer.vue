@@ -17,7 +17,7 @@
 <script>
 import ScheduleStatisticsChart from './ScheduleStatisticsChart.vue';
 import { scheduleStatisticsChartOptions } from './schedule-statistics-chart-options';
-import LoadingOverlay from '../../LoadingOverlay.vue';
+import LoadingOverlay from '@/components/common/LoadingOverlay.vue';
 
 import { RepositoryFactory } from '@/repositories/repository-factory';
 const scheduleRepository = RepositoryFactory.get('schedules');
