@@ -7,7 +7,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: loadView('Home'),
+    component: loadView('HomePage'),
   },
   {
     path: '/register',
