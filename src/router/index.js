@@ -17,7 +17,7 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: loadView('Login'),
+    component: loadView('LoginPage'),
   },
   {
     path: '/weight',
