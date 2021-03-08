@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import snackbar from './modules/snackbar.js';
-import scheduleGenerator from './modules/schedule-generator';
+import scheduleGenerator from './modules/schedule-generator.js';
 
 Vue.use(Vuex);
 
