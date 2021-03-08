@@ -18,7 +18,7 @@
 
 <script>
 import MainLayout from '@/layouts/MainLayout.vue';
-import WeightsDatePickerContainer from '@/components/weight/WeightsDatePickerContainer.vue';
+import WeightsDatePickerContainer from '@/components/weight/date-picker/WeightsDatePickerContainer.vue';
 import WeightsChartContainer from '@/components/weight/WeightsChartContainer.vue';
 import WeightGoalSetter from '../components/weight/goal/WeightGoalSetter.vue';
 
