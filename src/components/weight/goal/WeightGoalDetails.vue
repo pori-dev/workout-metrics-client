@@ -34,7 +34,7 @@ import {
 } from '@mdi/js';
 import { differenceInDays, parseISO } from 'date-fns';
 
-import LoadingOverlay from '../../LoadingOverlay.vue';
+import LoadingOverlay from '@/components/common/LoadingOverlay.vue';
 
 import { RepositoryFactory } from '@/repositories/repository-factory';
 const weightsRepository = RepositoryFactory.get('weights');

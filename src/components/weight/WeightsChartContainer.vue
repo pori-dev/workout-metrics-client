@@ -39,7 +39,7 @@
 
 <script>
 import WeightsChart from './WeightsChart.vue';
-import LoadingOverlay from '@/components/LoadingOverlay.vue';
+import LoadingOverlay from '@/components/common/LoadingOverlay.vue';
 import { subWeeks, subMonths, subYears, format, parseISO } from 'date-fns';
 import { weightsChartOptions } from './weights-chart-options';
 

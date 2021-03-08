@@ -14,7 +14,7 @@
 
 <script>
 import ScheduleStatuses from '@/components/schedule/ScheduleStatuses.vue';
-import LoadingOverlay from '@/components/LoadingOverlay.vue';
+import LoadingOverlay from '@/components/common/LoadingOverlay.vue';
 
 import { RepositoryFactory } from '@/repositories/repository-factory';
 

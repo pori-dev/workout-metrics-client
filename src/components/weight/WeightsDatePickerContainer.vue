@@ -22,7 +22,7 @@
 <script>
 import WeightsDatePicker from './WeightsDatePicker.vue';
 import WeightsDialog from './WeightsDialog.vue';
-import LoadingOverlay from '@/components/LoadingOverlay.vue';
+import LoadingOverlay from '@/components/common/LoadingOverlay.vue';
 
 import { mapMutations } from 'vuex';
 

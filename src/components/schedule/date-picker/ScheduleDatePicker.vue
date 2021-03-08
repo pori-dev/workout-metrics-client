@@ -34,7 +34,7 @@
 import { mdiChevronLeft, mdiChevronRight } from '@mdi/js';
 import { STATUS_COLOR } from '@/common/enums/status-colors.enum';
 import DatePicker from '@/components/common/DatePicker.vue';
-import LoadingOverlay from '@/components/LoadingOverlay.vue';
+import LoadingOverlay from '@/components/common/LoadingOverlay.vue';
 import ScheduleStatuses from '@/components/schedule/ScheduleStatuses.vue';
 
 export default {
