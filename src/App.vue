@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import AppSnackbar from '@/components/AppSnackbar.vue';
+import AppSnackbar from '@/components/common/AppSnackbar.vue';
 
 export default {
   name: 'App',
