@@ -17,6 +17,7 @@
 <script>
 import AppCard from '@/components/common/AppCard.vue';
 import LoadingOverlay from '@/components/common/LoadingOverlay.vue';
+
 export default {
   components: {
     LoadingOverlay,
