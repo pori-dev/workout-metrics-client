@@ -1,22 +1,25 @@
 <template>
-  <v-card height="100%" ref="chartContainer">
-    <loading-overlay :loading="loading">
-      <v-card-title class="font-weight-medium grey--text" ref="chartTitle">
-        Workout Statistics
-      </v-card-title>
+  <chart-card>
+    <template #chartTitle>
+      Workout Statistics
+    </template>
 
-      <schedule-statistics-chart
-        :chart-data="statisticsData"
-        :options="chartOptions"
-        :styles="chartStyle"
-      />
-    </loading-overlay>
-  </v-card>
+    <template #chart="chartStyle">
+      <loading-overlay :loading="loading">
+        <schedule-statistics-chart
+          :chart-data="statisticsData"
+          :options="chartOptions"
+          :styles="chartStyle"
+        />
+      </loading-overlay>
+    </template>
+  </chart-card>
 </template>
 
 <script>
 import ScheduleStatisticsChart from './ScheduleStatisticsChart.vue';
 import { scheduleStatisticsChartOptions } from './schedule-statistics-chart-options';
+import ChartCard from '@/components/common/ChartCard.vue';
 import LoadingOverlay from '@/components/common/LoadingOverlay.vue';
 
 import { RepositoryFactory } from '@/repositories/repository-factory';
@@ -26,34 +29,17 @@ export default {
   components: {
     ScheduleStatisticsChart,
     LoadingOverlay,
+    ChartCard,
   },
 
   data: () => ({
     loading: false,
-    chartHeight: 0,
     statisticsData: {},
     chartOptions: scheduleStatisticsChartOptions,
   }),
 
-  computed: {
-    chartStyle() {
-      return {
-        height: `${this.chartHeight}px`,
-        position: 'relative',
-      };
-    },
-  },
-
   created() {
     this.fetchStatistics();
-  },
-
-  mounted() {
-    const chartTitleHeight = this.$refs.chartTitle.getBoundingClientRect()
-      .height;
-    const chartContainerHeight = this.$refs.chartContainer.$el.getBoundingClientRect()
-      .height;
-    this.chartHeight = chartContainerHeight - chartTitleHeight;
   },
 
   methods: {

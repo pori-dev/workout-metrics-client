@@ -1,27 +1,28 @@
 <template>
-  <v-card class="pb-0">
-    <loading-overlay :loading="loading">
-      <v-card-title class="font-weight-medium grey--text">
-        Weight Goal Details
-        <v-card-text class="pb-0">
-          <div
-            v-for="(detail, i) in goalDetails"
-            :key="i"
-            class="mb-3 black--text ml-n3"
-          >
-            <span>
-              <v-icon v-html="detail.icon" class="mr-1" />
-              {{ detail.title }}:
-            </span>
+  <app-card>
+    <template #title>
+      Weight Goal Details
+    </template>
 
-            <span>{{ detail.value }} </span>
+    <template #text>
+      <loading-overlay :loading="loading">
+        <div
+          v-for="(detail, i) in goalDetails"
+          :key="i"
+          class="mb-3 black--text"
+        >
+          <span>
+            <v-icon v-html="detail.icon" class="mr-1" />
+            {{ detail.title }}:
+          </span>
 
-            <span>{{ detail.suffix }}</span>
-          </div>
-        </v-card-text>
-      </v-card-title>
-    </loading-overlay>
-  </v-card>
+          <span>{{ detail.value }} </span>
+
+          <span>{{ detail.suffix }}</span>
+        </div>
+      </loading-overlay>
+    </template>
+  </app-card>
 </template>
 
 <script>
@@ -35,12 +36,13 @@ import {
 import { differenceInDays, parseISO } from 'date-fns';
 
 import LoadingOverlay from '@/components/common/LoadingOverlay.vue';
+import AppCard from '@/components/common/AppCard.vue';
 
 import { RepositoryFactory } from '@/repositories/repository-factory';
 const weightsRepository = RepositoryFactory.get('weights');
 
 export default {
-  components: { LoadingOverlay },
+  components: { LoadingOverlay, AppCard },
   data: () => ({
     loading: false,
     goalDetails: {

@@ -1,20 +1,21 @@
 <template>
-  <v-card>
-    <loading-overlay :loading="loading">
-      <v-card-title class="font-weight-medium grey--text">
-        Workout Statistics
-      </v-card-title>
+  <app-card>
+    <template #title>
+      Workout Statistics
+    </template>
 
-      <v-card-text class="pb-2">
+    <template #text>
+      <loading-overlay :loading="loading">
         <schedule-statuses :counts="counts" />
-      </v-card-text>
-    </loading-overlay>
-  </v-card>
+      </loading-overlay>
+    </template>
+  </app-card>
 </template>
 
 <script>
 import ScheduleStatuses from '@/components/schedule/ScheduleStatuses.vue';
 import LoadingOverlay from '@/components/common/LoadingOverlay.vue';
+import AppCard from '@/components/common/AppCard.vue';
 
 import { RepositoryFactory } from '@/repositories/repository-factory';
 
@@ -24,6 +25,7 @@ export default {
   components: {
     ScheduleStatuses,
     LoadingOverlay,
+    AppCard,
   },
 
   data: () => ({

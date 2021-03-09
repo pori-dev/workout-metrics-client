@@ -1,10 +1,10 @@
 <template>
-  <v-card>
-    <v-card-title class="font-weight-medium grey--text">
+  <app-card>
+    <template #title>
       Weight Goal
-    </v-card-title>
+    </template>
 
-    <v-card-text>
+    <template #text>
       <v-row>
         <v-form @submit.prevent="submitGoal">
           <v-col cols="12">
@@ -32,8 +32,8 @@
           </v-col>
         </v-form>
       </v-row>
-    </v-card-text>
-  </v-card>
+    </template>
+  </app-card>
 </template>
 
 <script>
@@ -41,13 +41,14 @@ import { required, decimal } from 'vuelidate/lib/validators';
 import WeightGoalDatePicker from './WeightGoalDatePicker.vue';
 import { validationMixin } from 'vuelidate';
 import WeightGoalInput from './WeightGoalInput.vue';
+import AppCard from '@/components/common/AppCard.vue';
 
 import { RepositoryFactory } from '@/repositories/repository-factory';
 import { mapMutations } from 'vuex';
 const weightsRepository = RepositoryFactory.get('weights');
 
 export default {
-  components: { WeightGoalDatePicker, WeightGoalInput },
+  components: { WeightGoalDatePicker, WeightGoalInput, AppCard },
 
   data: () => ({
     loading: false,

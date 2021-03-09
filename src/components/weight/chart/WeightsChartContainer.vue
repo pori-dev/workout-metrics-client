@@ -1,45 +1,45 @@
 <template>
-  <v-card height="100%" ref="chartContainer" class="pb-2">
-    <loading-overlay :loading="loading">
-      <v-card-title class="font-weight-medium grey--text" ref="chartTitle">
-        <v-row justify="space-between">
-          <v-col cols="12" sm="5">
-            <div class="">
-              Weight Records
-            </div>
-          </v-col>
+  <chart-card>
+    <template #chartTitle>
+      <v-row justify="space-between">
+        <v-col cols="12" sm="5">
+          Weight Records
+        </v-col>
 
-          <v-col cols="12" sm="7">
-            <div class="d-flex flex-wrap justify-end">
-              <v-btn
-                v-for="(btn, i) in actionButtons"
-                :key="i"
-                v-bind="i === activeButtonIndex ? activeAttrs : ''"
-                @click="(activeButtonIndex = i), fetchAllFromDate()"
-                class="grey--text"
-                text
-                small
-                plain
-                >{{ btn }}</v-btn
-              >
-            </div>
-          </v-col>
-        </v-row>
-      </v-card-title>
+        <v-col cols="12" sm="7">
+          <div class="d-flex flex-wrap justify-end">
+            <v-btn
+              v-for="(btn, i) in actionButtons"
+              :key="i"
+              v-bind="i === activeButtonIndex ? activeAttrs : ''"
+              @click="(activeButtonIndex = i), fetchAllFromDate()"
+              class="grey--text"
+              text
+              small
+              plain
+              >{{ btn }}</v-btn
+            >
+          </div>
+        </v-col>
+      </v-row>
+    </template>
 
-      <weights-chart
-        key="same"
-        :chart-data="dataCollection"
-        :options="chartOptions"
-        :styles="chartStyle"
-      />
-    </loading-overlay>
-  </v-card>
+    <template #chart="chartStyle">
+      <loading-overlay :loading="loading">
+        <weights-chart
+          :chart-data="dataCollection"
+          :options="chartOptions"
+          :styles="chartStyle"
+        />
+      </loading-overlay>
+    </template>
+  </chart-card>
 </template>
 
 <script>
 import WeightsChart from './WeightsChart.vue';
 import LoadingOverlay from '@/components/common/LoadingOverlay.vue';
+import ChartCard from '@/components/common/ChartCard.vue';
 import { subWeeks, subMonths, subYears, format, parseISO } from 'date-fns';
 import { weightsChartOptions } from './weights-chart-options';
 
@@ -51,6 +51,7 @@ export default {
   components: {
     WeightsChart,
     LoadingOverlay,
+    ChartCard,
   },
 
   data: () => ({
@@ -62,7 +63,6 @@ export default {
       outlined: true,
     },
     loading: false,
-    chartHeight: 0,
     chartOptions: weightsChartOptions,
   }),
 
@@ -88,21 +88,6 @@ export default {
 
       return null;
     },
-
-    chartStyle() {
-      return {
-        height: `${this.chartHeight}px`,
-        position: 'relative',
-      };
-    },
-  },
-
-  mounted() {
-    const chartTitleHeight = this.$refs.chartTitle.getBoundingClientRect()
-      .height;
-    const chartContainerHeight = this.$refs.chartContainer.$el.getBoundingClientRect()
-      .height;
-    this.chartHeight = chartContainerHeight - chartTitleHeight;
   },
 
   created() {

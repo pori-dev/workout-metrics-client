@@ -1,38 +1,40 @@
 <template>
-  <v-card height="100%">
-    <v-card-title class="font-weight-medium grey--text">
+  <app-card height="100%">
+    <template #title>
       Workout Schedule
-    </v-card-title>
+    </template>
 
-    <v-card-subtitle class="grey--text text--lighten-1 text-caption">
+    <template #subtitle>
       (select a date to add, edit, or delete a schedule)
-    </v-card-subtitle>
+    </template>
 
-    <loading-overlay :loading="loading">
-      <date-picker
-        v-model="currentDate"
-        :events="eventsIndicator"
-        :prev-icon="prevIcon"
-        :next-icon="nextIcon"
-        no-title
-        full-width
-        color="accent"
-        @click:date="$emit('select-date', $event)"
-        @update:picker-date="$emit('picker-date', $event)"
-      />
-    </loading-overlay>
+    <template #text>
+      <loading-overlay :loading="loading">
+        <date-picker
+          v-model="currentDate"
+          :events="eventsIndicator"
+          :prev-icon="prevIcon"
+          :next-icon="nextIcon"
+          no-title
+          full-width
+          color="accent"
+          @click:date="$emit('select-date', $event)"
+          @update:picker-date="$emit('picker-date', $event)"
+        />
+      </loading-overlay>
 
-    <v-card-text>
       <schedule-statuses
         class="d-flex justify-space-between text-caption flex-wrap grey--text text--darken-0"
       />
-    </v-card-text>
-  </v-card>
+    </template>
+  </app-card>
 </template>
 
 <script>
 import { mdiChevronLeft, mdiChevronRight } from '@mdi/js';
 import { STATUS_COLOR } from '@/common/enums/status-colors.enum';
+import AppCard from '@/components/common/AppCard.vue';
+
 import DatePicker from '@/components/common/DatePicker.vue';
 import LoadingOverlay from '@/components/common/LoadingOverlay.vue';
 import ScheduleStatuses from '@/components/schedule/ScheduleStatuses.vue';
@@ -54,6 +56,7 @@ export default {
     DatePicker,
     LoadingOverlay,
     ScheduleStatuses,
+    AppCard,
   },
 
   data: () => ({
