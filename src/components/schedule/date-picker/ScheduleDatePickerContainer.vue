@@ -9,8 +9,7 @@
     />
 
     <schedule-date-picker-dialog
-      v-if="dialog"
-      :dialog.sync="dialog"
+      v-if="showScheduleDatePickerDialog"
       :selectedScheduleItem="selectedScheduleItem"
       @create="createScheduleItem"
       @update="updateScheduleItem"
@@ -38,11 +37,16 @@ export default {
     selectedScheduleItem: {},
     selectedDate: null,
     activevatedMonth: null,
-    dialog: false,
     loading: false,
   }),
 
   computed: {
+    showScheduleDatePickerDialog() {
+      return (
+        this.$store.state.dialog.dialogComponentName === 'scheduleDatePicker'
+      );
+    },
+
     refetchSchedule() {
       return this.$store.state.scheduleGenerator.refetchSchedule;
     },
@@ -79,11 +83,7 @@ export default {
     selectDateHandler(date) {
       this.selectedDate = date;
       this.setSelectedScheduleItem();
-      this.showModal();
-    },
-
-    showModal() {
-      this.dialog = true;
+      this.$store.commit('dialog/showDialog', 'scheduleDatePicker');
     },
 
     // because of date-picker picker-date update emit, it gets called when component instance gets mounted.

@@ -27,7 +27,7 @@
       </v-btn-toggle>
     </div>
 
-    <v-btn @click="generate" color="accent" light>Add</v-btn>
+    <v-btn @click="showDialogHandler" color="accent" light>Add</v-btn>
   </div>
 </template>
 
@@ -64,20 +64,24 @@ export default {
     ...mapMutations('scheduleGenerator', [
       'setSelectedWeekdays',
       'setSelectedPeriod',
-      'setShowDialog',
     ]),
 
     ...mapMutations('snackbar', ['showSnackbar']),
+    ...mapMutations('dialog', ['showDialog']),
 
-    generate() {
-      if (this.selectedWeekdays.length === 0 || this.selectedPeriod === null) {
+    showDialogHandler() {
+      if (
+        !this.selectedWeekdays.length ||
+        this.selectedPeriod === null ||
+        undefined
+      ) {
         this.showSnackbar({
           text:
             'Please select both weekdays and period for generating schedules',
         });
         return;
       } else {
-        this.setShowDialog(true);
+        this.showDialog('scheduleGenerator');
       }
     },
   },

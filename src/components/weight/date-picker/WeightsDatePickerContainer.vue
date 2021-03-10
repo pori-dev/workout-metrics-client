@@ -9,8 +9,7 @@
     </loading-overlay>
 
     <weights-date-picker-dialog
-      v-if="dialog"
-      :dialog.sync="dialog"
+      v-if="showWeightDatePickerDialog"
       :selectedWeightItem="selectedWeightItem"
       @create="createWeightRecord"
       @update="updateWeightRecord"
@@ -41,11 +40,16 @@ export default {
     weights: [],
     selectedWeightItem: {},
     selectedDate: null,
-    dialog: false,
     loading: false,
   }),
 
   computed: {
+    showWeightDatePickerDialog() {
+      return (
+        this.$store.state.dialog.dialogComponentName === 'weightDatePicker'
+      );
+    },
+
     findWeightItemIndexByDate() {
       return this.weights.findIndex(
         weightItem => weightItem.date === this.selectedDate
@@ -77,11 +81,7 @@ export default {
     selectDateHandler(date) {
       this.selectedDate = date;
       this.setSelectedWeightItem();
-      this.showModal();
-    },
-
-    showModal() {
-      this.dialog = true;
+      this.$store.commit('dialog/showDialog', 'weightDatePicker');
     },
 
     fetchAllWeightsByMonth(month) {

@@ -1,64 +1,63 @@
 <template>
   <div class="text-center">
-    <!-- Todo: add close button to dialog component -->
-    <v-dialog v-model="isDialogVisible" width="600">
-      <v-card>
-        <v-toolbar dark color="primary" class="font-weight-medium text-h6">
-          {{ formattedSelectedDate }}
-        </v-toolbar>
+    <app-dialog>
+      <template #dialogTitle>
+        {{ formattedSelectedDate }}
+      </template>
 
-        <v-card-text class="px-4 pt-8 d-flex">
-          <v-row>
-            <v-col cols="12" sm="5">
-              <div class="text-h6">
-                Set the date as:
-              </div>
-            </v-col>
-            <v-col cols="12" sm="7">
-              <div class="d-flex justify-end">
-                <v-btn
-                  v-if="showTodoButton"
-                  @click="dialogActionHandler('todo')"
-                  color="primary"
-                  class="ml-2"
-                  >Todo</v-btn
-                >
-                <v-btn
-                  v-if="showDoneButton"
-                  @click="dialogActionHandler('done')"
-                  class="ml-2"
-                  color="green"
-                  dark
-                  >Done</v-btn
-                >
-                <v-btn
-                  v-if="showMissedButton"
-                  @click="dialogActionHandler('missed')"
-                  class="ml-2"
-                  color="red"
-                  dark
-                  >Missed</v-btn
-                >
-                <v-btn
-                  v-if="showRemoveButton"
-                  @click="dialogActionHandler('remove')"
-                  class="ml-2"
-                  dark
-                  >Remove</v-btn
-                >
-              </div>
-            </v-col>
-          </v-row>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
+      <template #dialogBody>
+        <v-row>
+          <v-col cols="12" sm="5">
+            <div class="text-h6">
+              Set the date as:
+            </div>
+          </v-col>
+          <v-col cols="12" sm="7">
+            <div class="d-flex justify-end">
+              <v-btn
+                v-if="showTodoButton"
+                @click="dialogActionHandler('todo')"
+                color="primary"
+                class="ml-2"
+                >Todo</v-btn
+              >
+              <v-btn
+                v-if="showDoneButton"
+                @click="dialogActionHandler('done')"
+                class="ml-2"
+                color="green"
+                dark
+                >Done</v-btn
+              >
+              <v-btn
+                v-if="showMissedButton"
+                @click="dialogActionHandler('missed')"
+                class="ml-2"
+                color="red"
+                dark
+                >Missed</v-btn
+              >
+              <v-btn
+                v-if="showRemoveButton"
+                @click="dialogActionHandler('remove')"
+                class="ml-2"
+                dark
+                >Remove</v-btn
+              >
+            </div>
+          </v-col>
+        </v-row>
+      </template>
+    </app-dialog>
   </div>
 </template>
 
 <script>
 import { format, parseISO, isBefore, isAfter, isToday } from 'date-fns';
+import AppDialog from '@/components/common/AppDialog.vue';
 
 export default {
+  components: { AppDialog },
   props: {
     dialog: {
       default: false,
@@ -70,15 +69,6 @@ export default {
     },
   },
   computed: {
-    isDialogVisible: {
-      get() {
-        return this.dialog;
-      },
-      set(newValue) {
-        this.$emit('update:dialog', newValue);
-      },
-    },
-
     showMissedButton() {
       return (
         this.selectedScheduleItem.status !== 'missed' &&
@@ -134,7 +124,7 @@ export default {
         emitAction = 'create';
       }
       this.$emit(emitAction, statusType);
-      this.isDialogVisible = false;
+      this.$store.commit('dialog/hideDialog');
     },
   },
 };

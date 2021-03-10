@@ -17,7 +17,6 @@ export default {
   state: () => ({
     selectedWeekdays: [],
     selectedPeriod: null,
-    showDialog: false,
     refetchSchedule: false,
   }),
 
@@ -28,10 +27,6 @@ export default {
 
     setSelectedPeriod(state, payload) {
       state.selectedPeriod = payload;
-    },
-
-    setShowDialog(state, payload) {
-      state.showDialog = payload;
     },
 
     setRefetchSchedule(state, payload) {
